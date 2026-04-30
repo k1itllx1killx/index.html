@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carta</title>
+<style>
+body{
+  margin:0;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Georgia, serif;
+  overflow:hidden;
+  color:white;
+}
+
+/* carta */
+.carta{
+  width:300px;
+  height:200px;
+  background:#eee;
+  position:relative;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#333;
+  font-weight:bold;
+  transition:1s;
+}
+
+.carta::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ccc;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+}
+
+/* hoja */
+.hoja{
+  position:absolute;
+  width:260px;
+  height:160px;
+  background:#f5e6c8;
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+  box-shadow:0 0 20px rgba(0,0,0,0.6);
+  padding:15px;
+  color:#3b2f2f;
+}
+
+/* quemado */
+.hoja::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  background:radial-gradient(circle, transparent 60%, rgba(0,0,0,0.7));
+}
+
+/* texto */
+#texto{
+  position:relative;
+  z-index:2;
+  font-size:14px;
+}
+
+/* animaciones */
+.oculta{
+  opacity:0;
+  transform:scale(0.5);
+}
+
+.mostrarHoja{
+  opacity:1;
+  transform:translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<div class="carta" onclick="abrir()" id="carta">
+  Toca para abrir 💌
+</div>
+
+<div class="hoja" id="hoja">
+  <div id="texto"></div>
+</div>
+
+<script>
+const mensaje = "7 meses ya juntitos la vd nunca esperé estar tanto tiempo cntg ni muxo menos cn una persona pense en k nunca iba a durar pr cntg td es muy diferente eh amado cn locura eh perdonado cosas k nunca pensé perdonar td x amor x las esperanzas d tener un futuro cntg i no m arrepiente d acerlo aunq a veces m aga daño esos recuerdos es normal aun siguen ahí pr t los perdone xq amo cnd m amas xq se cm eres cnd no amas i m encanta tener esa exclusividad m siento muy afortunado aunq no t lo diga  todos los días, eres la mujer mas bella del planeta i d mi vida ojalá nunca t dejes llevar x la avaricia x otro hombre o x una tontería para satisfacerte recuerdo k tenemos muchos años juntos x delante i miles d millones d experiencias k cumplir yo se k seremos muy felices juntos aunq ay días en los k no i ya los eh vivido i los viviremos or nunca ay k dejarnos x un problema o x lo k sea siempre ay k estar juntitos i cda dia amarnos muxo mas k ayer espero k estés muy cómoda cnmg xq yo cntg lo estoy muchísimo t amo muchísimo cn toda mi vida ojalá supiera desde el fondo d mi corazón td lo k t eh amado i t amo i t amaré x ndie nunca jamás t amara cm yo lo hice espero tener ese futuritooo cntg d el k tanto ablamos x las noches cn nuestros hijos dvd k m encantaría verlos jugar juntitos esq m dan asta ganas d llorar tan solo pensar en lo bonito k tne k ser estar cuerpo a cuerpo los dos esq tenemos una química tan incomprensible para algn solter@ o algn en relación somos tan únicos en este mundo x eso t amo tanto i recuerda k siempre a cualquier hora del dia cualquier día o lo k sea cuéntame td cn detalles xq siempre m va a encantar escucharte cm pierdes tiempo cnmg o aciendo cualquier tontería m encanta amor eres la mejor persona a la cual eh conocido i conoceré xq ndie jamás ara lo k tú un día tuviste k sufrir x solo verme feliz ndie haría eso i espero k sigamos juntitos xq no veo un futuro ya solito solo lo veo cntg una casita, nuestros hijos, muuuuucha comidita i k nunca falte la energía bonita dentro d la casa k nunca tengan k existir esos problemas o esa raíz d algo k puede llegar a jdr td yo kiero tener algo muy feliz cntg mi niña espero k sigamos i sigas bn cntg i cnmg xq si tnes algún problema nunca olvides k m tnes ami cm una ia pr versión minion i estupido aunq ni sepa k decirte o lo k putas sea";
+
+function escribirTexto(texto, elemento, velocidad = 30){
+  let i = 0;
+  function escribir(){
+    if(i < texto.length){
+      elemento.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, velocidad);
+    }
+  }
+  escribir();
+}
+
+function abrir(){
+  const carta = document.getElementById("carta");
+  const hoja = document.getElementById("hoja");
+  const texto = document.getElementById("texto");
+
+  // desaparecer carta
+  carta.classList.add("oculta");
+
+  // mostrar hoja
+  setTimeout(()=>{
+    hoja.classList.add("mostrarHoja");
+  },800);
+
+  // escribir texto
+  setTimeout(()=>{
+    escribirTexto(mensaje, texto);
+  },1200);
+}
+</script>
+
+</body>
+</html>
